@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3-Tier Kubernetes App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>My 3-Tier Application</h1>
+        <p>Deployed using Docker and Kubernetes (Minikube)</p>
+
+        <div class="card">
+            <h2>Frontend</h2>
+            <p>HTML, CSS and Nginx</p>
+        </div>
+
+        <div class="card">
+            <h2>Backend</h2>
+            <p id="backend-status">Checking backend...</p>
+        </div>
+
+        <div class="card">
+            <h2>Database</h2>
+            <p id="database-status">Checking database...</p>
+        </div>
+    </div>
+
+    <script>
+        async function checkBackend() {
+            try {
+                const response = await fetch('/api/status');
+                const data = await response.json();
+                document.getElementById('backend-status').textContent =
+                    'Backend: ' + data.backend;
+                document.getElementById('database-status').textContent =
+                    'Database: ' + data.database;
+            } catch (error) {
+                document.getElementById('backend-status').textContent =
+                    'Backend connection pending';
+                document.getElementById('database-status').textContent =
+                    'Database connection pending';
+            }
+        }
+
+        checkBackend();
+    </script>
+</body>
+</html>
