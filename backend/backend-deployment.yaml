@@ -1,3 +1,5 @@
+
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -12,6 +14,8 @@ spec:
       labels:
         app: backend
     spec:
+      nodeSelector:
+        kubernetes.io/hostname: minikube-m02
       containers:
         - name: backend
           image: skillnest-backend:1.0
@@ -41,3 +45,4 @@ spec:
   ports:
     - port: 5000
       targetPort: 5000
+
